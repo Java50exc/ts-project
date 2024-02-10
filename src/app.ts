@@ -10,7 +10,7 @@ color = "red";
 function f1(n1: number, n2: number): number {
     return n1 + n2;
 }
-//f1(1, "1");
+// f1(1, "1");
 function f2(array: number[]): number {
     return array.reduce((res, cur)=> res + cur);
 }
@@ -43,24 +43,21 @@ type Person = {
 }
 const person:Person = {id: 123, name: "Vasya"}
 //HW #29
-function shiftRound(str: string, shift: number): string {
-    //TODO
-    //shift any positive number
-    //adds "shift" to ASCII codes of lower case letters
-    //if the shifted code will be greater than ASCII code 'z'
-    // the code should be begun from ASCII code 'a'
-    //source letter 'a' will be 'c' if "shift" == 2
-    //source letter 'z' will be 'b' if shift ==2
-    //example: shiftRound("aabx!", 4) => ("eefb!")
 
-    return "";
+
+const ALPH_LEN: number = 26;
+const CODE_A: number = 97;
+
+function shiftRound(str: string, shift: number): string {
+    return shiftString(str, (n => (n + shift) % ALPH_LEN));
 }
+
 function unshiftRound(str: string, shift: number): string {
-    //subtracts "shift" from ASCII codes of lower case letters
-    //if the shifted code will be less than ASCII code 'a'
-    // the code should be begun from ASCII code 'z'
-    //source letter 'c' will be 'a' if "shift" == 2
-    //source letter 'b' will be 'z' if shift ==2
-    //example: ushiftRound("eefb!", 4) => ("aabx!")
-    return "";
+    return shiftString(str, (n => ALPH_LEN - 1 -((shift + ALPH_LEN - n) % ALPH_LEN)));
+}
+
+function shiftString(str: string, fn: (c: number) => number): string {
+    return Array.from(str)
+        .map(c => c >= 'a' && c <= 'z' ? String.fromCharCode(fn(c.charCodeAt(0) - CODE_A) + CODE_A) : c)
+        .join('');
 }
