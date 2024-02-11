@@ -3,8 +3,8 @@ import { CipherLeftShift } from "./CipherLeftShift";
 import { CipherRightShift } from "./CipherRightShift";
 import { displayCipherDecipher } from "./displayCipherDecipher";
 
-const left: Cipher = new CipherLeftShift(1);
-const right: Cipher = new CipherRightShift(1);
+const left: Cipher = new CipherLeftShift();
+const right: Cipher = new CipherRightShift();
 
 displayCipherDecipher(left, ' !~ASDasd ');
 displayCipherDecipher(right, ' !~ASDasd ');
