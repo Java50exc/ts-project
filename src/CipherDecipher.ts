@@ -1,10 +1,10 @@
 import { Cipher } from "./Cipher";
 export class CipherImpl implements Cipher {
-    private LET_START: string = 'a';
-    private LET_END: string = 'z';
-    CODE_START: number = this.LET_START.charCodeAt(0);
-    CODE_END: number = this.LET_END.charCodeAt(0);
-    ALPH_LEN: number = this.CODE_END - this.CODE_START + 1;
+    private LET_START: string = ' ';
+    private LET_END: string = '~';
+    private OFFSET: number = this.LET_START.charCodeAt(0);
+    CODE_END: number = this.LET_END.charCodeAt(0) - this.OFFSET;
+    ALPH_LEN: number = this.CODE_END + 1;
     
     constructor(private cipherFn: (c: number) => number, 
         private decipherFn: (c: number) => number) {}
@@ -23,9 +23,8 @@ export class CipherImpl implements Cipher {
                 if (c < this.LET_START || c > this.LET_END) {
                     return c;
                 }
-                return String.fromCharCode(fn(c.charCodeAt(0) - this.CODE_START) + this.CODE_START);
-            })
-            .join('');
+                return String.fromCharCode(fn(c.charCodeAt(0) - this.OFFSET) + this.OFFSET);
+            }).join('');
     }
     
 }
