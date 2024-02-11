@@ -53,7 +53,7 @@ function shiftRound(str: string, shift: number): string {
 }
 
 function unshiftRound(str: string, shift: number): string {
-    return shiftString(str, (n => ALPH_LEN - 1 -((shift + ALPH_LEN - n) % ALPH_LEN)));
+    return shiftString(str, (n => ALPH_LEN - 1 -((shift + ALPH_LEN - 1 - n) % ALPH_LEN)));
 }
 
 function shiftString(str: string, fn: (c: number) => number): string {
@@ -61,3 +61,5 @@ function shiftString(str: string, fn: (c: number) => number): string {
         .map(c => c >= 'a' && c <= 'z' ? String.fromCharCode(fn(c.charCodeAt(0) - CODE_A) + CODE_A) : c)
         .join('');
 }
+
+console.log(unshiftRound('abc', 1))
