@@ -45,20 +45,28 @@ const person:Person = {id: 123, name: "Vasya"}
 //HW #29
 
 
-const ALPH_LEN: number = 26;
-const CODE_A: number = 97;
+const LET_START: string = 'a';
+const LET_END: string = 'z';
+const CODE_START: number = LET_START.charCodeAt(0);
+const CODE_END: number = LET_END.charCodeAt(0);
+const ALPH_LEN: number = CODE_END - CODE_START + 1;
 
 function shiftRound(str: string, shift: number): string {
     return shiftString(str, (n => (n + shift) % ALPH_LEN));
 }
 
 function unshiftRound(str: string, shift: number): string {
-    return shiftString(str, (n => ALPH_LEN - 1 -((shift + ALPH_LEN - 1 - n) % ALPH_LEN)));
+    return shiftString(str, (n => CODE_END -((shift + CODE_END - n) % ALPH_LEN)));
 }
 
 function shiftString(str: string, fn: (c: number) => number): string {
     return Array.from(str)
-        .map(c => c >= 'a' && c <= 'z' ? String.fromCharCode(fn(c.charCodeAt(0) - CODE_A) + CODE_A) : c)
+        .map(c => {
+            if (c < LET_START || c > LET_END) {
+                return c;
+            }
+            return String.fromCharCode(fn(c.charCodeAt(0) - CODE_START) + CODE_START);
+        })
         .join('');
 }
 
