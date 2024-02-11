@@ -47,9 +47,9 @@ const person:Person = {id: 123, name: "Vasya"}
 
 const LET_START: string = 'a';
 const LET_END: string = 'z';
-const CODE_START: number = LET_START.charCodeAt(0);
-const CODE_END: number = LET_END.charCodeAt(0);
-const ALPH_LEN: number = CODE_END - CODE_START + 1;
+const OFFSET: number = LET_START.charCodeAt(0);
+const CODE_END: number = LET_END.charCodeAt(0) - OFFSET;
+const ALPH_LEN: number = CODE_END + 1;
 
 function shiftRound(str: string, shift: number): string {
     return shiftString(str, (n => (n + shift) % ALPH_LEN));
@@ -65,9 +65,9 @@ function shiftString(str: string, fn: (c: number) => number): string {
             if (c < LET_START || c > LET_END) {
                 return c;
             }
-            return String.fromCharCode(fn(c.charCodeAt(0) - CODE_START) + CODE_START);
+            return String.fromCharCode(fn(c.charCodeAt(0) - OFFSET) + OFFSET);
         })
         .join('');
 }
 
-console.log(unshiftRound('abc', 1))
+console.log(unshiftRound('abc', 3))
