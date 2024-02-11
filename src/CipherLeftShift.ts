@@ -1,6 +1,9 @@
 import { CipherImpl } from "./CipherDecipher";
 export class CipherLeftShift extends CipherImpl {
-    //TODO
-    //deciphering right shift ' ' + shift
-    //ciphering left shift '~' - shift
+
+    constructor(key: number) {
+        super(n => (n + key) % this.ALPH_LEN, 
+            n => this.CODE_END -((key + this.CODE_END - n) % this.ALPH_LEN))
+
+    }
 }
